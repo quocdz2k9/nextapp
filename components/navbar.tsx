@@ -2,48 +2,70 @@
 
 import { useState } from "react"
 import { useTheme } from "next-themes"
+import { useSession, signOut } from "next-auth/react"
+import Image from "next/image"
+
 import { Button } from "@/components/ui/button"
 import { Menu, X, Sun, Moon, Monitor } from "lucide-react"
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
   const { theme, setTheme } = useTheme()
+  const { data: session } = useSession()
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 
-      bg-background/80 backdrop-blur 
+    <header className="fixed top-0 left-0 w-full z-50
+      bg-background/80 backdrop-blur
       border-b border-border transition-colors duration-300">
 
       <div className="flex items-center justify-between px-6 py-4">
 
         {/* Logo */}
-<div className="flex items-center gap-2 font-semibold text-lg 
-  text-foreground transition-colors duration-300">
-  
-  <svg
-    width="24"
-    height="20"
-    viewBox="0 0 76 65"
-    xmlns="http://www.w3.org/2000/svg"
-    className="transition-colors duration-300"
-    fill="currentColor"
-  >
-    <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
-  </svg>
-
-  <span className="transition-colors duration-300">
-    MinhApp
-  </span>
-</div>
+        <div className="flex items-center gap-2 font-semibold text-lg text-foreground">
+          <svg
+            width="24"
+            height="20"
+            viewBox="0 0 76 65"
+            fill="currentColor"
+          >
+            <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
+          </svg>
+          <span>MinhApp</span>
+        </div>
 
         <div className="flex items-center gap-3">
-          <Button variant="outline">
-            Đăng nhập
-          </Button>
 
+          {/* Nếu đã login */}
+          {session ? (
+            <div className="flex items-center gap-3">
+
+              {session.user?.image && (
+                <Image
+                  src={session.user.image}
+                  alt="avatar"
+                  width={32}
+                  height={32}
+                  className="rounded-full"
+                />
+              )}
+
+              <Button
+                variant="outline"
+                onClick={() => signOut()}
+              >
+                Sign out
+              </Button>
+            </div>
+          ) : (
+            <Button variant="outline">
+              Đăng nhập
+            </Button>
+          )}
+
+          {/* Menu button */}
           <button
             onClick={() => setOpen(!open)}
-            className="flex items-center justify-center w-10 h-10 rounded-full 
+            className="flex items-center justify-center w-10 h-10 rounded-full
               border border-border hover:bg-muted transition"
           >
             {open ? <X size={18} /> : <Menu size={18} />}
@@ -51,9 +73,10 @@ export function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {open && (
-        <div className="bg-background border-t border-border 
-          px-6 py-6 space-y-6 text-foreground transition-colors duration-300">
+        <div className="bg-background border-t border-border
+          px-6 py-6 space-y-6 text-foreground">
 
           <div className="space-y-3">
             <p className="hover:opacity-80 cursor-pointer">Trang chủ</p>
@@ -63,13 +86,13 @@ export function Navbar() {
             <p className="hover:opacity-80 cursor-pointer">Bảng giá</p>
           </div>
 
+          {/* Theme switch */}
           <div className="pt-4 border-t border-border">
             <p className="mb-3 text-sm text-muted-foreground">
               Giao diện
             </p>
 
-            <div className="flex items-center gap-2 
-              bg-muted p-1 rounded-full w-fit border border-border">
+            <div className="flex items-center gap-2 bg-muted p-1 rounded-full w-fit border border-border">
 
               <button
                 onClick={() => setTheme("system")}
@@ -100,8 +123,20 @@ export function Navbar() {
             </div>
           </div>
 
+          {/* Auth button mobile */}
           <div className="pt-4 border-t border-border">
-            <Button className="w-full">Đăng nhập</Button>
+            {session ? (
+              <Button
+                className="w-full"
+                onClick={() => signOut()}
+              >
+                Sign out
+              </Button>
+            ) : (
+              <Button className="w-full">
+                Đăng nhập
+              </Button>
+            )}
           </div>
         </div>
       )}
