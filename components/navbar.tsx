@@ -1,16 +1,18 @@
 "use client"
 
 import { useState } from "react"
+import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Sun, Moon, Monitor } from "lucide-react"
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
+  const { theme, setTheme } = useTheme()
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-black/70 backdrop-blur border-b border-zinc-800">
       <div className="flex items-center justify-between px-6 py-4">
-        
+
         {/* Logo */}
         <div className="flex items-center gap-2 text-white font-semibold text-lg">
           <svg
@@ -30,7 +32,9 @@ export function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="hidden sm:inline-flex">
+          
+          {/* Hiện luôn trên mobile */}
+          <Button variant="outline">
             Đăng nhập
           </Button>
 
@@ -43,9 +47,11 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Dropdown Menu */}
+      {/* Dropdown */}
       {open && (
-        <div className="bg-zinc-950 border-t border-zinc-800 px-6 py-6 space-y-4 text-zinc-200">
+        <div className="bg-zinc-950 border-t border-zinc-800 px-6 py-6 space-y-6 text-zinc-200">
+
+          {/* Menu link */}
           <div className="space-y-3">
             <p className="hover:text-white cursor-pointer">Trang chủ</p>
             <p className="hover:text-white cursor-pointer">Sản phẩm</p>
@@ -54,6 +60,42 @@ export function Navbar() {
             <p className="hover:text-white cursor-pointer">Bảng giá</p>
           </div>
 
+          {/* Giao diện */}
+          <div className="pt-4 border-t border-zinc-800">
+            <p className="mb-3 text-sm text-zinc-400">Giao diện</p>
+
+            <div className="flex items-center gap-2 bg-zinc-900 p-1 rounded-full w-fit border border-zinc-800">
+              
+              <button
+                onClick={() => setTheme("system")}
+                className={`p-2 rounded-full transition ${
+                  theme === "system" ? "bg-zinc-700 text-white" : "text-zinc-400"
+                }`}
+              >
+                <Monitor size={16} />
+              </button>
+
+              <button
+                onClick={() => setTheme("light")}
+                className={`p-2 rounded-full transition ${
+                  theme === "light" ? "bg-zinc-700 text-white" : "text-zinc-400"
+                }`}
+              >
+                <Sun size={16} />
+              </button>
+
+              <button
+                onClick={() => setTheme("dark")}
+                className={`p-2 rounded-full transition ${
+                  theme === "dark" ? "bg-zinc-700 text-white" : "text-zinc-400"
+                }`}
+              >
+                <Moon size={16} />
+              </button>
+            </div>
+          </div>
+
+          {/* Login full width */}
           <div className="pt-4 border-t border-zinc-800">
             <Button className="w-full">Đăng nhập</Button>
           </div>
