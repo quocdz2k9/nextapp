@@ -10,66 +10,65 @@ export function Navbar() {
   const { theme, setTheme } = useTheme()
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-black/70 backdrop-blur border-b border-zinc-800">
+    <header className="fixed top-0 left-0 w-full z-50 
+      bg-background/80 backdrop-blur 
+      border-b border-border transition-colors duration-300">
+
       <div className="flex items-center justify-between px-6 py-4">
 
         {/* Logo */}
-        <div className="flex items-center gap-2 text-white font-semibold text-lg">
+        <div className="flex items-center gap-2 font-semibold text-lg">
           <svg
             width="24"
             height="20"
             viewBox="0 0 76 65"
-            fill="none"
+            fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M37.5274 0L75.0548 65H0L37.5274 0Z"
-              fill="#ffffff"
-            />
+            <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
           </svg>
           MinhApp
         </div>
 
-        {/* Right side */}
         <div className="flex items-center gap-3">
-          
-          {/* Hiện luôn trên mobile */}
           <Button variant="outline">
             Đăng nhập
           </Button>
 
           <button
             onClick={() => setOpen(!open)}
-            className="flex items-center justify-center w-10 h-10 rounded-full border border-zinc-700 hover:bg-zinc-800 transition"
+            className="flex items-center justify-center w-10 h-10 rounded-full 
+              border border-border hover:bg-muted transition"
           >
             {open ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
 
-      {/* Dropdown */}
       {open && (
-        <div className="bg-zinc-950 border-t border-zinc-800 px-6 py-6 space-y-6 text-zinc-200">
+        <div className="bg-background border-t border-border 
+          px-6 py-6 space-y-6 text-foreground transition-colors duration-300">
 
-          {/* Menu link */}
           <div className="space-y-3">
-            <p className="hover:text-white cursor-pointer">Trang chủ</p>
-            <p className="hover:text-white cursor-pointer">Sản phẩm</p>
-            <p className="hover:text-white cursor-pointer">Tài nguyên</p>
-            <p className="hover:text-white cursor-pointer">Giải pháp</p>
-            <p className="hover:text-white cursor-pointer">Bảng giá</p>
+            <p className="hover:opacity-80 cursor-pointer">Trang chủ</p>
+            <p className="hover:opacity-80 cursor-pointer">Sản phẩm</p>
+            <p className="hover:opacity-80 cursor-pointer">Tài nguyên</p>
+            <p className="hover:opacity-80 cursor-pointer">Giải pháp</p>
+            <p className="hover:opacity-80 cursor-pointer">Bảng giá</p>
           </div>
 
-          {/* Giao diện */}
-          <div className="pt-4 border-t border-zinc-800">
-            <p className="mb-3 text-sm text-zinc-400">Giao diện</p>
+          <div className="pt-4 border-t border-border">
+            <p className="mb-3 text-sm text-muted-foreground">
+              Giao diện
+            </p>
 
-            <div className="flex items-center gap-2 bg-zinc-900 p-1 rounded-full w-fit border border-zinc-800">
-              
+            <div className="flex items-center gap-2 
+              bg-muted p-1 rounded-full w-fit border border-border">
+
               <button
                 onClick={() => setTheme("system")}
                 className={`p-2 rounded-full transition ${
-                  theme === "system" ? "bg-zinc-700 text-white" : "text-zinc-400"
+                  theme === "system" && "bg-background shadow"
                 }`}
               >
                 <Monitor size={16} />
@@ -78,7 +77,7 @@ export function Navbar() {
               <button
                 onClick={() => setTheme("light")}
                 className={`p-2 rounded-full transition ${
-                  theme === "light" ? "bg-zinc-700 text-white" : "text-zinc-400"
+                  theme === "light" && "bg-background shadow"
                 }`}
               >
                 <Sun size={16} />
@@ -87,7 +86,7 @@ export function Navbar() {
               <button
                 onClick={() => setTheme("dark")}
                 className={`p-2 rounded-full transition ${
-                  theme === "dark" ? "bg-zinc-700 text-white" : "text-zinc-400"
+                  theme === "dark" && "bg-background shadow"
                 }`}
               >
                 <Moon size={16} />
@@ -95,8 +94,7 @@ export function Navbar() {
             </div>
           </div>
 
-          {/* Login full width */}
-          <div className="pt-4 border-t border-zinc-800">
+          <div className="pt-4 border-t border-border">
             <Button className="w-full">Đăng nhập</Button>
           </div>
         </div>
