@@ -17,18 +17,24 @@ export function Navbar() {
       <div className="flex items-center justify-between px-6 py-4">
 
         {/* Logo */}
-        <div className="flex items-center gap-2 font-semibold text-lg">
-          <svg
-            width="24"
-            height="20"
-            viewBox="0 0 76 65"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
-          </svg>
-          MinhApp
-        </div>
+<div className="flex items-center gap-2 font-semibold text-lg 
+  text-foreground transition-colors duration-300">
+  
+  <svg
+    width="24"
+    height="20"
+    viewBox="0 0 76 65"
+    xmlns="http://www.w3.org/2000/svg"
+    className="transition-colors duration-300"
+    fill="currentColor"
+  >
+    <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
+  </svg>
+
+  <span className="transition-colors duration-300">
+    MinhApp
+  </span>
+</div>
 
         <div className="flex items-center gap-3">
           <Button variant="outline">
