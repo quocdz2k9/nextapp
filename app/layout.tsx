@@ -3,8 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { Navbar } from "@/components/navbar"
 import { Providers } from "@/components/providers"
+import { AuthProvider } from "@/components/auth-provider"
 
-export const dynamic = "force-dynamic"  // 👈 THÊM DÒNG NÀY
+export const dynamic = "force-dynamic"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
-          <Navbar />
+          <AuthProvider>
+            <Navbar />
+          </AuthProvider>
           {children}
         </Providers>
       </body>
